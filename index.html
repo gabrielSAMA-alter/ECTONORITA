@@ -44,7 +44,7 @@
       filter: drop-shadow(0 8px 30px rgba(255,77,184,0.12));
       animation: pulse 3s ease-in-out infinite;
       white-space: initial;
-      transition: all 0.25s ease-out; /* transição suave entre textos */
+      transition: all 0.25s ease-out;
     }
 
     .sub{
@@ -86,7 +86,12 @@
     </div>
   </div>
 
+  <!-- Áudio -->
+  <audio id="musica" src="Musica.mp3" preload="auto" loop></audio>
+
   <script>
+    /* ------ SISTEMA DE DIGITAÇÃO ------ */
+
     function killType() {
       if (window._typeInterval) {
         clearInterval(window._typeInterval);
@@ -117,8 +122,8 @@
       { text: "SOOOOOOOOOOOOOO", delay: 3200, type: true },
       { text: "OOOOOOOOOOOOOOOOOOOOOOOO", delay: 4800, type: true },
       { text: "OOOOOOOOOOOOO", delay: 5900, type: true },
-      { text: "feliz aniversário MOAMO", delay: 7200, type: false }, // sem O no final
-    { text: "<3", delay: 8200, type: false } // sem O no final
+      { text: "feliz aniversário MOAMO", delay: 7200, type: false },
+      { text: "<3", delay: 8200, type: false }
     ];
 
     setTimeout(() => {
@@ -131,6 +136,28 @@
         }, step.delay);
       });
     }, 500);
+
+    /* ------ AUTOPLAY DO ÁUDIO (COM HACK + FALLBACK) ------ */
+
+    const audio = document.getElementById("musica");
+    audio.volume = 0.55;
+    audio.muted = true;
+
+    // tentativa de autoplay silencioso
+    audio.play().then(() => {
+      setTimeout(() => {
+        audio.muted = false;
+      }, 300);
+    }).catch(() => {});
+
+    // se o navegador bloquear, libera no primeiro clique
+    function liberarAudio() {
+      audio.muted = false;
+      audio.play().catch(()=>{});
+      window.removeEventListener("click", liberarAudio);
+    }
+
+    window.addEventListener("click", liberarAudio);
   </script>
 </body>
 </html>
