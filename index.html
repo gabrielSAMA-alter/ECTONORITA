@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>I LOVE YOU SOOOOO</title>
+  <style>
+    :root{
+      --bg1:#0f1022;
+      --bg2:#1b1036;
+      --pink1:#ff4db8;
+      --pink2:#ff66d9;
+    }
+    html,body{height:100%;}
+    body{
+      margin:0;
+      display:grid;
+      place-items:center;
+      background: radial-gradient(1200px 600px at 10% 20%, rgba(255,77,184,0.06), transparent),
+                  linear-gradient(120deg,var(--bg1),var(--bg2));
+      font-family: Inter, ui-sans-serif, system-ui;
+      color: white;
+    }
+
+    .card{
+      text-align:center;
+      padding:4vmin;
+      border-radius:24px;
+      backdrop-filter: blur(6px) saturate(1.1);
+      box-shadow: 0 8px 40px rgba(2,6,23,0.6);
+    }
+
+    h1{
+      margin:0;
+      line-height:0.9;
+      font-weight:800;
+      font-size: clamp(48px, 14vw, 220px);
+      letter-spacing:-0.02em;
+      background: linear-gradient(90deg,var(--pink1),var(--pink2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 4px 30px rgba(255,102,217,0.18);
+      filter: drop-shadow(0 8px 30px rgba(255,77,184,0.12));
+      animation: pulse 3s ease-in-out infinite;
+      white-space: initial;
+      transition: all 0.25s ease-out; /* transição suave entre textos */
+    }
+
+    .sub{
+      margin-top:1vmin;
+      font-size: clamp(12px, 2.6vw, 20px);
+      color: rgba(255,255,255,0.6);
+    }
+
+    @keyframes pulse{
+      0%{ transform: scale(1); }
+      50%{ transform: scale(1.03); }
+      100%{ transform: scale(1); }
+    }
+
+    .card:hover h1{
+      animation: wobble 700ms ease-in-out 1;
+    }
+
+    @keyframes wobble{
+      0%{ transform: rotate(0deg) scale(1); }
+      25%{ transform: rotate(-1.6deg) scale(1.01); }
+      50%{ transform: rotate(1.2deg) scale(1.02); }
+      75%{ transform: rotate(-0.6deg) scale(1.01); }
+      100%{ transform: rotate(0deg) scale(1); }
+    }
+
+    .container{
+      max-width:1100px;
+      width:95vw;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>I LOVE YOU SOOOOO</h1>
+      <div class="sub">te amo 😭❤️</div>
+    </div>
+  </div>
+
+  <script>
+    function killType() {
+      if (window._typeInterval) {
+        clearInterval(window._typeInterval);
+        window._typeInterval = null;
+      }
+    }
+
+    function typewrite(element, text, speed = 70) {
+      killType();
+      element.innerHTML = "";
+      let i = 0;
+
+      window._typeInterval = setInterval(() => {
+        element.innerHTML += text[i];
+        i++;
+        if (i >= text.length) killType();
+      }, speed);
+    }
+
+    function showText(element, text) {
+      killType();
+      element.innerHTML = text;
+    }
+
+    const steps = [
+      { text: "I LOVE YOU SO", delay: 0, type: false },
+      { text: "I LOVE YOU SOOOOOO", delay: 1500, type: true },
+      { text: "SOOOOOOOOOOOOOO", delay: 3200, type: true },
+      { text: "OOOOOOOOOOOOOOOOOOOOOOOO", delay: 4800, type: true },
+      { text: "OOOOOOOOOOOOO", delay: 5900, type: true },
+      { text: "feliz aniversário MOAMO", delay: 7200, type: false }, // sem O no final
+    { text: "<3", delay: 8200, type: false } // sem O no final
+    ];
+
+    setTimeout(() => {
+      const h1 = document.querySelector("h1");
+
+      steps.forEach(step => {
+        setTimeout(() => {
+          if (step.type) typewrite(h1, step.text, 85);
+          else showText(h1, step.text);
+        }, step.delay);
+      });
+    }, 500);
+  </script>
+</body>
+</html>
